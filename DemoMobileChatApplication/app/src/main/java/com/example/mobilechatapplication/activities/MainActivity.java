@@ -1,6 +1,6 @@
 package com.example.mobilechatapplication.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements ConversionListener {
+public class MainActivity extends BaseActivity implements ConversionListener {
 
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements ConversionListene
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::updateToken);
     }
     private void updateToken(String token){
+        preferenceManager.putString(Constants.KEY_FCM_TOKEN, token);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference documentReference =
                 database.collection(Constants.KEY_COLLECTION_USERS).document(
